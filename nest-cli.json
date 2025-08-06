@@ -37,6 +37,15 @@
         "tsConfigPath": "apps/nestjs-monorepo-grpc/tsconfig.app.json"
       }
     },
+    "rbac": {
+      "type": "application",
+      "root": "apps/rbac",
+      "entryFile": "main",
+      "sourceRoot": "apps/rbac/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/rbac/tsconfig.app.json"
+      }
+    },
     "upload": {
       "type": "application",
       "root": "apps/upload",
@@ -53,6 +62,15 @@
       "sourceRoot": "apps/user-auth/src",
       "compilerOptions": {
         "tsConfigPath": "apps/user-auth/tsconfig.app.json"
+      }
+    },
+    "user-service": {
+      "type": "application",
+      "root": "apps/user-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/user-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/user-service/tsconfig.app.json"
       }
     },
     "users": {

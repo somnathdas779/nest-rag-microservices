@@ -4,13 +4,15 @@ import { UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import bcrypt from 'bcrypt';
 import { UserService } from '@app/users';
+import { ConfigService } from '@nestjs/config';
 
 import { v4 } from 'uuid';
 
 @Controller()
 export class AuthService {
   constructor(
-    private jwtService: JwtService,
+    private readonly configService: ConfigService,
+    private readonly jwtService: JwtService,
     private readonly userService: UserService,
   ) {}
 
@@ -44,8 +46,8 @@ export class AuthService {
     const token = this.jwtService.sign(
       { sub: user.id, role: user.role },
       {
-        secret: 'some-secret',
-        expiresIn: '1h',
+        secret: this.configService.get('JWT_SECRET'),
+        expiresIn: this.configService.get('JWT_VALID_THROUGH'),
       },
     );
     return { token };

@@ -22,6 +22,9 @@
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
+      "@app/*": [
+        "libs/*/src"
+      ],
       "@app/database": [
         "libs/database/src"
       ],
@@ -33,8 +36,7 @@
       ],
       "@app/users/*": [
         "libs/users/src/*"
-      ],
-      "@app/*": ["libs/*/src"]
+      ]
     }
   }
 }
