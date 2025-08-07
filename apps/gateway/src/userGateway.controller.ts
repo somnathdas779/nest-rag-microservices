@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  Param,
+  Patch,
   Post,
   Query,
   Req,
@@ -25,7 +27,6 @@ export class UserGatewayController {
   @Get('')
   getUser(@Req() req: { user: Partial<User> }) {
     try {
-      console.log(req);
       const { id, name, role } = req?.user;
       return { success: true, user: { id, name, role } };
     } catch (error) {
@@ -43,7 +44,6 @@ export class UserGatewayController {
   ) {
     try {
       const { id } = req?.user;
-      console.log(page, limit, search, id);
       if (!id) throw new Error(`findAllUser failed user not found`);
       return await this.userGatewayService.findAllUser(page, limit, search, id);
     } catch (error) {
@@ -52,6 +52,48 @@ export class UserGatewayController {
           ? (error as { message: string }).message
           : String(error);
       throw new Error(`findAllUser failed: ${message}`);
+    }
+  }
+
+  @Post()
+  @Roles(UserRole.ADMIN)
+  async createUser(
+    @Body()
+    body: {
+      name: string;
+      email: string;
+      password: string;
+      role: string;
+    },
+  ) {
+    try {
+      return await this.userGatewayService.createUser(body);
+    } catch (error) {
+      const message =
+        typeof error === 'object' && error !== null && 'message' in error
+          ? (error as { message: string }).message
+          : String(error);
+      throw new Error(`findAllUser failed: ${message}`);
+    }
+  }
+
+  @Patch(':userId/:roleName')
+  @Roles(UserRole.ADMIN)
+  async updateUser(
+    @Param('userId') userId: string,
+    @Param('roleName') roleName: UserRole,
+    @Req() req: { user: Partial<User> },
+  ) {
+    try {
+      const { id } = req?.user;
+      if (id == userId) throw new Error(`Not allowed`);
+      return await this.userGatewayService.updateUser(userId, roleName);
+    } catch (error) {
+      const message =
+        typeof error === 'object' && error !== null && 'message' in error
+          ? (error as { message: string }).message
+          : String(error);
+      throw new Error(`updateUser failed: ${message}`);
     }
   }
 }

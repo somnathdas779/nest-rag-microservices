@@ -11,13 +11,11 @@ export class SharedJwtService {
 
   verifyToken(token: string) {
     try {
-      console.log(this.configService.get('JWT_SECRET'));
       return this.jwtService.verify(token, {
         secret: this.configService.get('JWT_SECRET'),
         ignoreExpiration: false,
       });
     } catch (err) {
-      console.log(err);
       throw new UnauthorizedException('Invalid or expired token');
     }
   }

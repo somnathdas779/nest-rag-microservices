@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './user.entity';
+import { User, UserRole } from './user.entity';
 
 @Injectable()
 export class UserService {
@@ -16,7 +16,6 @@ export class UserService {
   }
 
   async findAll(page: number, limit: number, search: string, id: string) {
-    console.log('===============>', id);
     const query = this.userRepo
       .createQueryBuilder('user')
       .select(['user.id', 'user.email', 'user.role', 'user.CreatedAt'])
@@ -34,8 +33,6 @@ export class UserService {
       .skip((page - 1) * limit)
       .take(limit)
       .getManyAndCount();
-
-    console.log('--->', data);
     return {
       data,
       total,
@@ -48,8 +45,11 @@ export class UserService {
     return this.userRepo.findOne({ where: { email } });
   }
 
-  update(id: number, data: Partial<User>) {
-    return this.userRepo.update(id, data);
+  update(id: string, role: UserRole) {
+    return this.userRepo.update(
+      { id }, // condition
+      { role: role }, // fields to update
+    );
   }
 
   softDelete(id: number) {

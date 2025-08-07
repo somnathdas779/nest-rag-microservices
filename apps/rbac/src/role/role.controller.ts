@@ -16,24 +16,24 @@ export class RoleService {
     id: string;
   }) {
     const { page, limit, search, id } = data;
-    const users = await this.userService.findAll(
-      page,
-      limit,
-      search,
-      id,
-    );
-    console.log({ ...users, success: true });
+    const users = await this.userService.findAll(page, limit, search, id);
     return { ...users, success: true };
   }
 
   @GrpcMethod()
-  async createUser(data: { email: string; password: string; role: UserRole }) {
-    const { email, password, role } = data;
+  async createUser(data: {
+    name: string;
+    email: string;
+    password: string;
+    role: UserRole;
+  }) {
+    const { name, email, password, role } = data;
     const existing = await this.userService.findByEmail(email);
-    if (existing) throw new Error('Email already registered');
+    if (existing) throw new Error('Email already exist');
     const hashed: string = await bcrypt.hash(password, 10);
     const user = await this.userService.create({
       id: v4(),
+      name,
       email,
       password: hashed,
       role,
@@ -46,9 +46,9 @@ export class RoleService {
   }
 
   @GrpcMethod()
-  async updateRole(data: { id: number; role: UserRole }) {
+  async updateRole(data: { id: string; role: UserRole }) {
     const { id, role } = data;
-    const users = await this.userService.update(id, { role });
-    return { data: users, success: true };
+    const users = await this.userService.update(id, role);
+    return { data: users, success: users.affected ? true : false };
   }
 }

@@ -44,7 +44,6 @@ export class AuthService {
     if (!passwordMatch) {
       throw new UnauthorizedException('Invalid credentials');
     }
-    console.log(this.configService.get('JWT_SECRET'));
     const token = this.jwtService.sign(
       { id: user.id, name: user.name, role: user.role },
       {
