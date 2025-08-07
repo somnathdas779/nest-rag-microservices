@@ -10,7 +10,7 @@ async function bootstrap() {
       transport: Transport.GRPC,
       options: {
         package: 'upload',
-        protoPath: join(__dirname, '../../libs/proto/src/upload.proto'),
+        protoPath: join(__dirname, '../../libs/proto/upload.proto'),
         url: '0.0.0.0:50052',
       },
     },

@@ -1,17 +1,8 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { GatewayService } from './gateway.service';
 
 @Controller()
-export class GatewayController {
-  /**
-   * Health check endpoint to verify if the gateway service is running.
-   * @returns An object with status and message.
-   */
-  @Get('health')
-  health(): { status: string; message: string } {
-    return { status: 'ok', message: 'Gateway Service is running' };
-  }
-
+export class AuthGatewayController {
   constructor(private readonly gatewayService: GatewayService) {
     // Ensure gatewayService is not shadowed or overwritten
     if (!gatewayService || typeof gatewayService.register !== 'function') {

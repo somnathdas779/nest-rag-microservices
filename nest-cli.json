@@ -28,6 +28,15 @@
         "tsConfigPath": "apps/gateway/tsconfig.app.json"
       }
     },
+    "manage-documents": {
+      "type": "application",
+      "root": "apps/manage-documents",
+      "entryFile": "main",
+      "sourceRoot": "apps/manage-documents/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/manage-documents/tsconfig.app.json"
+      }
+    },
     "nestjs-monorepo-grpc": {
       "type": "application",
       "root": "apps/nestjs-monorepo-grpc",

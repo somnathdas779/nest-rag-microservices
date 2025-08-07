@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package role;
+
+service RoleService {
+  rpc GetAllUser (GetAllUserRequest) returns (GetAllUserResponse);
+  rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+  rpc UpdateRole (UpdateRoleRequest) returns (UpdateRoleResponse);
+}
+
+enum UserRole {
+  ADMIN = 0;
+  EDITOR = 1;
+  VIEWER = 2;
+}
+
+message CreateUserRequest {
+  string email = 1;
+  string password = 2;
+  UserRole role = 3;
+}
+
+message CreateUserResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetAllUserRequest {
+  int32 page = 1;
+  int32 limit = 2;
+  string search = 3;
+}
+
+message User {
+  string id = 1;
+  string email = 2;
+  string role = 3;
+}
+
+message GetAllUserResponse {
+  repeated User data = 1;
+  int32 total = 2;
+  int32 page = 3;
+  int32 limit = 4;
+  bool success = 5;
+}
+
+message UpdateRoleRequest {
+  int32 id = 1;
+  UserRole role = 2;
+}
+
+message UpdateRoleResponse {
+  User data = 1;
+  bool success = 2;
+}

@@ -15,8 +15,32 @@ export class UserService {
     return this.userRepo.save(user);
   }
 
-  findAll() {
-    return this.userRepo.find();
+  async findAll(page: number, limit: number, search: string) {
+    const query = this.userRepo
+      .createQueryBuilder('user')
+      .select(['user.id', 'user.email', 'user.role', 'user.CreatedAt'])
+      .where('user.soft_delete = :softDelete', { softDelete: false });
+
+    // Optional search filter
+    if (search && search !== '') {
+      query.andWhere('(user.email ILIKE :search)', {
+        search: `%${search}%`,
+      });
+    }
+
+    // Count total for pagination metadata
+    const [data, total] = await query
+      .skip((page - 1) * limit)
+      .take(limit)
+      .getManyAndCount();
+
+    console.log('--->', data);
+    return {
+      data,
+      total,
+      page,
+      limit,
+    };
   }
 
   findByEmail(email: string) {
@@ -27,7 +51,7 @@ export class UserService {
     return this.userRepo.update(id, data);
   }
 
-  delete(id: number) {
+  softDelete(id: number) {
     return this.userRepo.delete(id);
   }
 }
