@@ -17,13 +17,14 @@ export class AuthService {
   ) {}
 
   @GrpcMethod()
-  async registerUser(data: { email: string; password: string }) {
-    const { email, password } = data;
+  async registerUser(data: { name: string; email: string; password: string }) {
+    const { name, email, password } = data;
     const existing = await this.userService.findByEmail(email);
     if (existing) throw new Error('Email already registered');
     const hashed: string = await bcrypt.hash(password, 10);
     const user = await this.userService.create({
       id: v4(),
+      name,
       email,
       password: hashed,
     });
@@ -43,8 +44,9 @@ export class AuthService {
     if (!passwordMatch) {
       throw new UnauthorizedException('Invalid credentials');
     }
+    console.log(this.configService.get('JWT_SECRET'));
     const token = this.jwtService.sign(
-      { sub: user.id, role: user.role },
+      { id: user.id, name: user.name, role: user.role },
       {
         secret: this.configService.get('JWT_SECRET'),
         expiresIn: this.configService.get('JWT_VALID_THROUGH'),

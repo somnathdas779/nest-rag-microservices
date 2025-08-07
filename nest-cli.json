@@ -28,6 +28,24 @@
         "tsConfigPath": "apps/gateway/tsconfig.app.json"
       }
     },
+    "jwt": {
+      "type": "library",
+      "root": "libs/jwt",
+      "entryFile": "index",
+      "sourceRoot": "libs/jwt/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/jwt/tsconfig.lib.json"
+      }
+    },
+    "libs/jwt": {
+      "type": "library",
+      "root": "libs/libs/jwt",
+      "entryFile": "index",
+      "sourceRoot": "libs/libs/jwt/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/libs/jwt/tsconfig.lib.json"
+      }
+    },
     "manage-documents": {
       "type": "application",
       "root": "apps/manage-documents",

@@ -31,6 +31,18 @@
       "@app/database/*": [
         "libs/database/src/*"
       ],
+      "@app/jwt": [
+        "libs/jwt/src"
+      ],
+      "@app/jwt/*": [
+        "libs/jwt/src/*"
+      ],
+      "@app/libs/jwt": [
+        "libs/libs/jwt/src"
+      ],
+      "@app/libs/jwt/*": [
+        "libs/libs/jwt/src/*"
+      ],
       "@app/users": [
         "libs/users/src"
       ],

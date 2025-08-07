@@ -95,7 +95,12 @@
     ],
     "moduleNameMapper": {
       "^@app/database(|/.*)$": "<rootDir>/libs/database/src/$1",
+      "^@app/jwt(|/.*)$": "<rootDir>/libs/jwt/src/$1",
+      "^@app/libs/jwt(|/.*)$": "<rootDir>/libs/libs/jwt/src/$1",
       "^@app/users(|/.*)$": "<rootDir>/libs/users/src/$1"
     }
+  },
+  "engines": {
+    "node": "^20.0.0"
   }
 }

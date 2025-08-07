@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { GatewayService } from './gateway.service';
+import { AuthGatewayService } from './authGateway.service';
 
 @Controller()
 export class AuthGatewayController {
-  constructor(private readonly gatewayService: GatewayService) {
+  constructor(private readonly gatewayService: AuthGatewayService) {
     // Ensure gatewayService is not shadowed or overwritten
     if (!gatewayService || typeof gatewayService.register !== 'function') {
       throw new Error('gatewayService is not properly injected');
@@ -11,9 +11,15 @@ export class AuthGatewayController {
   }
 
   @Post('register')
-  async register(@Body() body: { email: string; password: string }) {
+  async register(
+    @Body() body: { name: string; email: string; password: string },
+  ) {
     try {
-      return await this.gatewayService.register(body.email, body.password);
+      return await this.gatewayService.register(
+        body.name,
+        body.email,
+        body.password,
+      );
     } catch (error) {
       const message =
         typeof error === 'object' && error !== null && 'message' in error

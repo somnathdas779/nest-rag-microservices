@@ -5,9 +5,10 @@ import { Observable } from 'rxjs';
 
 interface AuthService {
   RegisterUser(data: {
+    name: string;
     email: string;
     password: string;
-  }): Observable<{ token: string; message: string }>;
+  }): Observable<{ status: boolean; message: string }>;
   LoginUser(data: {
     email: string;
     password: string;
@@ -15,7 +16,7 @@ interface AuthService {
 }
 
 @Injectable()
-export class GatewayService implements OnModuleInit {
+export class AuthGatewayService implements OnModuleInit {
   private authClient: AuthService;
 
   constructor(@Inject('AUTH_SERVICE') private readonly client: ClientGrpc) {}
@@ -24,8 +25,10 @@ export class GatewayService implements OnModuleInit {
     this.authClient = this.client.getService<AuthService>('AuthService');
   }
 
-  async register(email: string, password: string) {
-    return lastValueFrom(this.authClient.RegisterUser({ email, password }));
+  async register(name: string, email: string, password: string) {
+    return lastValueFrom(
+      this.authClient.RegisterUser({ name, email, password }),
+    );
   }
 
   async login(email: string, password: string) {

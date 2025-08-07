@@ -1,13 +1,20 @@
 import { Module } from '@nestjs/common';
 import { AuthGatewayController } from './authGateway.controller';
-import { GatewayService } from './gateway.service';
+import { AuthGatewayService } from './authGateway.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
 import { UserGatewayController } from './userGateway.controller';
 import { UserGatewayService } from './userGateway.service';
+import { SharedJwtModule } from '@app/jwt';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: ['.env'], // defaults to .env
+    }),
+    SharedJwtModule,
     ClientsModule.register([
       {
         name: 'AUTH_SERVICE',
@@ -40,6 +47,6 @@ import { UserGatewayService } from './userGateway.service';
     ]),
   ],
   controllers: [AuthGatewayController, UserGatewayController],
-  providers: [GatewayService, UserGatewayService],
+  providers: [AuthGatewayService, UserGatewayService],
 })
 export class GatewayModule {}

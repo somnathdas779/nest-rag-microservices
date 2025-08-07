@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { UserGatewayService } from './userGateway.service';
-
+import { JwtAuthGuard } from '@app/jwt';
 @Controller('user')
+@UseGuards(JwtAuthGuard)
 export class UserGatewayController {
   constructor(private readonly userGatewayService: UserGatewayService) {
     // Ensure gatewayService is not shadowed or overwritten
