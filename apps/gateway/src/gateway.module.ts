@@ -7,6 +7,7 @@ import { UserGatewayController } from './userGateway.controller';
 import { UserGatewayService } from './userGateway.service';
 import { SharedJwtModule } from '@app/jwt';
 import { ConfigModule } from '@nestjs/config';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { ConfigModule } from '@nestjs/config';
         },
       },
     ]),
+    HealthModule,
   ],
   controllers: [AuthGatewayController, UserGatewayController],
   providers: [AuthGatewayService, UserGatewayService],

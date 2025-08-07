@@ -16,5 +16,7 @@ async function bootstrap() {
     },
   );
   await app.listen();
+  const httpApp = await NestFactory.create(UploadModule);
+  await httpApp.listen(3002); // port for health check
 }
 void bootstrap();

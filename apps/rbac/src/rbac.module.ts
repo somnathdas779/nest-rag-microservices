@@ -5,6 +5,7 @@ import { RbacService } from './rbac.service';
 import { DatabaseModule } from '@app/database';
 import { UsersModule } from '@app/users';
 import { RoleService } from './role/role.controller';
+import { HealthModule } from './health/health.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -13,6 +14,7 @@ import { RoleService } from './role/role.controller';
     }),
     DatabaseModule,
     UsersModule,
+    HealthModule,
   ],
   controllers: [RbacController, RoleService],
   providers: [RbacService, RoleService],
