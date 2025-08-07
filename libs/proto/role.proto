@@ -29,6 +29,7 @@ message GetAllUserRequest {
   int32 page = 1;
   int32 limit = 2;
   string search = 3;
+  string id = 4;
 }
 
 message User {

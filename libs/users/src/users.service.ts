@@ -15,12 +15,13 @@ export class UserService {
     return this.userRepo.save(user);
   }
 
-  async findAll(page: number, limit: number, search: string) {
+  async findAll(page: number, limit: number, search: string, id: string) {
+    console.log('===============>', id);
     const query = this.userRepo
       .createQueryBuilder('user')
       .select(['user.id', 'user.email', 'user.role', 'user.CreatedAt'])
-      .where('user.soft_delete = :softDelete', { softDelete: false });
-
+      .where('user.id != :id', { id })
+      .andWhere('user.soft_delete = :softDelete', { softDelete: false });
     // Optional search filter
     if (search && search !== '') {
       query.andWhere('(user.email ILIKE :search)', {

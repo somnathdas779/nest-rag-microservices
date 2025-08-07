@@ -22,7 +22,9 @@ export class UserGatewayService implements OnModuleInit {
     this.roleClient = this.client.getService<RoleService>('RoleService');
   }
 
-  async findAllUser(page: number, limit: number, search: string) {
-    return lastValueFrom(this.roleClient.GetAllUser({ page, limit, search }));
+  async findAllUser(page: number, limit: number, search: string, id: string) {
+    return lastValueFrom(
+      this.roleClient.GetAllUser({ page, limit, search, id }),
+    );
   }
 }

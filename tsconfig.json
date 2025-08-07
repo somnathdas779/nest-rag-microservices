@@ -43,6 +43,12 @@
       "@app/libs/jwt/*": [
         "libs/libs/jwt/src/*"
       ],
+      "@app/role": [
+        "libs/role/src"
+      ],
+      "@app/role/*": [
+        "libs/role/src/*"
+      ],
       "@app/users": [
         "libs/users/src"
       ],

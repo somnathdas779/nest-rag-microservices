@@ -73,6 +73,15 @@
         "tsConfigPath": "apps/rbac/tsconfig.app.json"
       }
     },
+    "role": {
+      "type": "library",
+      "root": "libs/role",
+      "entryFile": "index",
+      "sourceRoot": "libs/role/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/role/tsconfig.lib.json"
+      }
+    },
     "upload": {
       "type": "application",
       "root": "apps/upload",

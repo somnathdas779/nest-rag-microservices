@@ -9,9 +9,19 @@ export class RoleService {
   constructor(private readonly userService: UserService) {}
 
   @GrpcMethod()
-  async getAllUser(data: { page: number; limit: number; search: string }) {
-    const { page, limit, search } = data;
-    const users = await this.userService.findAll(page, limit, search);
+  async getAllUser(data: {
+    page: number;
+    limit: number;
+    search: string;
+    id: string;
+  }) {
+    const { page, limit, search, id } = data;
+    const users = await this.userService.findAll(
+      page,
+      limit,
+      search,
+      id,
+    );
     console.log({ ...users, success: true });
     return { ...users, success: true };
   }
