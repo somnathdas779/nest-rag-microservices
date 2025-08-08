@@ -8,6 +8,7 @@ export class UploadController {
   @All('*')
   handleTus(@Req() req, @Res() res) {
     // Forward request to tus-node-server
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     this.tusService.getHandler()(req, res);
   }
 }
