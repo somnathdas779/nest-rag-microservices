@@ -22,7 +22,7 @@ import { HealthModule } from './health/health.module';
         transport: Transport.GRPC,
         options: {
           package: 'userauth',
-          protoPath: join(process.cwd(), 'libs/proto/user_auth.proto'),
+          protoPath: join(process.cwd(), '/dist/libs/proto/user_auth.proto'),
           url: 'localhost:50051',
         },
       },
@@ -31,7 +31,7 @@ import { HealthModule } from './health/health.module';
         transport: Transport.GRPC,
         options: {
           package: 'role',
-          protoPath: join(process.cwd(), 'libs/proto/role.proto'),
+          protoPath: join(process.cwd(), '/dist/libs/proto/role.proto'),
           url: 'localhost:50053',
         },
       },
@@ -41,7 +41,7 @@ import { HealthModule } from './health/health.module';
         transport: Transport.GRPC,
         options: {
           package: 'upload',
-          protoPath: join(process.cwd(), 'libs/proto/upload.proto'),
+          protoPath: join(process.cwd(), '/dist/libs/proto/upload.proto'),
           url: 'localhost:50052',
         },
       },
