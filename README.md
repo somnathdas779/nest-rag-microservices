@@ -98,6 +98,24 @@ Creating ./deploy/helm/rbac
 
 
 
+## Use MiniKube to test in local for gateway service , do the same for rest of the service
 
 
+```bash
 
+minikube start --driver=docker
+minikube status
+
+helm install gateway ./deploy/helm/gateway
+
+
+kubectl get pods
+kubectl describe node
+
+#check pods status
+kubectl get pods -l app.kubernetes.io/name=gateway
+
+#restart the deployment if required
+kubectl rollout restart deployment gateway
+
+```
