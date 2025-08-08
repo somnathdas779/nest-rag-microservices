@@ -1,27 +1,34 @@
-import { Injectable } from '@nestjs/common';
-
-export interface UploadRequest {
-  userId: string;
-  file: Buffer;
-  filename: string;
-}
-
-export interface UploadResponse {
-  success: boolean;
-  url: string;
-}
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Server, FileStore } from 'tus-node-server';
+import { Observable } from 'rxjs';
+import { GrpcMethod } from '@nestjs/microservices';
+import { join } from 'path';
 
 @Injectable()
-export class UploadService {
-  UploadFile(request: UploadRequest): Promise<UploadResponse> {
-    const { userId, filename } = request;
+export class UploadService implements OnModuleInit {
+  private tusServer: Server;
 
-    // Simulate saving the file (normally you'd store it on S3, local disk, etc.)
-    const fakeUrl = `https://storage.example.com/${userId}/${filename}`;
+  onModuleInit() {
+    const uploadDir = join(process.cwd(), './uploads');
 
-    return Promise.resolve({
-      success: true,
-      url: fakeUrl,
+    this.tusServer = new Server({
+      path: uploadDir, // required
+    });
+
+    // Set datastore separately
+    this.tusServer.datastore = new FileStore({
+      directory: uploadDir, // Correct option is 'directory' not 'path'
+    });
+  }
+
+  @GrpcMethod('UploadService', 'StartUpload')
+  startUpload(data: {
+    fileId: string;
+  }): Observable<{ success: boolean; message: string }> {
+    // For demo: Just acknowledge start, real tus upload via HTTP
+    return new Observable((observer) => {
+      observer.next({ success: true, message: 'Upload started' });
+      observer.complete();
     });
   }
 }

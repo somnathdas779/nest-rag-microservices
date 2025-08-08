@@ -98,7 +98,7 @@ Creating ./deploy/helm/rbac
 
 
 
-## Use MiniKube to test in local for gateway service , do the same for rest of the service
+## Use MiniKube to test in local - Ex gateway service , do the same steps for rest of the Micro services
 
 
 ```bash

@@ -2,17 +2,30 @@ syntax = "proto3";
 
 package upload;
 
+service DocumentService {
+  rpc UploadFile(UploadFileRequest) returns (UploadFileResponse);
+}
+
 service UploadService {
-  rpc UploadFile (UploadRequest) returns (UploadResponse);
+  rpc StartUpload(StartUploadRequest) returns (StartUploadResponse);
 }
 
-message UploadRequest {
-  string userId = 1;
-  bytes file = 2;
-  string filename = 3;
+message UploadFileRequest {
+  string filename = 1;
+  int64 size = 2;
+  // more metadata if needed
 }
 
-message UploadResponse {
+message UploadFileResponse {
+  string fileId = 1;
+  string status = 2;
+}
+
+message StartUploadRequest {
+  string fileId = 1;
+}
+
+message StartUploadResponse {
   bool success = 1;
-  string url = 2;
+  string message = 2;
 }

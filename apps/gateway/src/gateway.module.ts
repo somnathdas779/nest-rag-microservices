@@ -8,6 +8,8 @@ import { UserGatewayService } from './userGateway.service';
 import { SharedJwtModule } from '@app/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { HealthModule } from './health/health.module';
+import { FileGatewayController } from './fileGateway.controller';
+import { UploadGatewayService } from './uploadGateway.service';
 
 @Module({
   imports: [
@@ -35,7 +37,15 @@ import { HealthModule } from './health/health.module';
           url: 'localhost:50053',
         },
       },
-
+      {
+        name: 'DOCUMENT_PACKAGE',
+        transport: Transport.GRPC,
+        options: {
+          package: 'upload',
+          protoPath: join(process.cwd(), './dist/libs/proto/upload.proto'),
+          url: 'localhost:50054', // Document service address
+        },
+      },
       {
         name: 'UPLOAD_SERVICE',
         transport: Transport.GRPC,
@@ -48,7 +58,11 @@ import { HealthModule } from './health/health.module';
     ]),
     HealthModule,
   ],
-  controllers: [AuthGatewayController, UserGatewayController],
-  providers: [AuthGatewayService, UserGatewayService],
+  controllers: [
+    AuthGatewayController,
+    UserGatewayController,
+    FileGatewayController,
+  ],
+  providers: [AuthGatewayService, UserGatewayService, UploadGatewayService],
 })
 export class GatewayModule {}

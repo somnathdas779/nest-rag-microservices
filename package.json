@@ -8,9 +8,10 @@
   "scripts": {
     "start:user-auth": "nest start user-auth --watch",
     "start:rbac": "nest start rbac --watch",
+    "start:doc": "nest start manage-document --watch",
     "start:upload": "nest start upload --watch",
     "start:gateway": "nest start gateway --watch",
-    "start:all": "npm-run-all --parallel start:user-auth start:rbac start:upload start:gateway",
+    "start:all": "npm-run-all --parallel start:user-auth start:rbac start:upload start:doc start:gateway",
     "build": "nest build && npm run postbuild",
     "postbuild": "copyfiles -u 2 \"libs/proto/**/*.proto\" dist/libs/proto",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
@@ -43,6 +44,7 @@
     "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
+    "tus-node-server": "^0.9.0",
     "typeorm": "^0.3.25",
     "uuid": "^11.1.0"
   },
