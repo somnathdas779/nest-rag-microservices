@@ -5,7 +5,7 @@ import { createProxyMiddleware } from 'http-proxy-middleware';
 @Injectable()
 export class TusProxyMiddleware implements NestMiddleware {
   private proxy = createProxyMiddleware({
-    target: 'http://localhost:3001',
+    target: 'http://localhost:3001', // Expose tus pods via a Kubernetes Service (ClusterIP or LoadBalancer)
     changeOrigin: true,
     ws: true,
     pathRewrite: {
