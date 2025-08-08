@@ -10,13 +10,13 @@ async function bootstrap() {
       transport: Transport.GRPC,
       options: {
         package: 'userauth',
-        protoPath: join(__dirname, '../../libs/proto/user_auth.proto'),
+        protoPath: join(process.cwd(), './dist/libs/proto/user_auth.proto'),
         url: '0.0.0.0:50051',
       },
     },
   );
   await app.listen();
   const httpApp = await NestFactory.create(UserAuthModule);
-  await httpApp.listen(3001); // port for health check
+  await httpApp.listen(4001); // port for health check
 }
 void bootstrap();

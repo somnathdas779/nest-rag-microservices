@@ -10,13 +10,13 @@ async function bootstrap() {
       transport: Transport.GRPC,
       options: {
         package: 'upload',
-        protoPath: join(__dirname, '/dist/libs/proto/upload.proto'),
+        protoPath: join(process.cwd(), './dist/libs/proto/upload.proto'),
         url: '0.0.0.0:50052',
       },
     },
   );
   await app.listen();
   const httpApp = await NestFactory.create(UploadModule);
-  await httpApp.listen(3002); // port for health check
+  await httpApp.listen(4002); // port for health check
 }
 void bootstrap();

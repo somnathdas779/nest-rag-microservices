@@ -17,6 +17,6 @@ async function bootstrap() {
   );
   await app.listen();
   const httpApp = await NestFactory.create(RbacModule);
-  await httpApp.listen(3003); // port for health check
+  await httpApp.listen(4003); // port for health check
 }
 void bootstrap();

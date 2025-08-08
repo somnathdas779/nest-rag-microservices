@@ -32,7 +32,7 @@ COPY --from=builder /app/dist ./dist
 COPY package*.json ./
 RUN npm install --omit=dev
 
-EXPOSE 3000
+EXPOSE 4000
 
 RUN echo "build path dist/apps/$APP_NAME/main.js"
 ENTRYPOINT ["sh", "-c", "node dist/apps/$APP_NAME/main.js"]

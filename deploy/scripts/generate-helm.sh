@@ -31,13 +31,13 @@ for SERVICE in "${SERVICES[@]}"; do
     sed -i "s|appVersion: .*|appVersion: \"1.0.0\"|g" "$CHART_PATH/Chart.yaml"
 
     # Optional: Set correct container port in values.yaml
-    PORT=3000
+    PORT=4000
     if [ "$SERVICE" == "gateway" ]; then
-        PORT=3001
+        PORT=4001
     elif [ "$SERVICE" == "user-auth" ]; then
-        PORT=3002
+        PORT=4002
     elif [ "$SERVICE" == "upload" ]; then
-        PORT=3003
+        PORT=4003
     fi
     sed -i "s|containerPort: .*|containerPort: $PORT|g" "$CHART_PATH/values.yaml"
 
