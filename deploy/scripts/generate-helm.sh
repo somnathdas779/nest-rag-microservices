@@ -21,6 +21,18 @@ for SERVICE in "${SERVICES[@]}"; do
         helm create "$CHART_PATH"
     fi
 
+    # Set replicas per service
+    declare -A REPLICAS
+    REPLICAS=( ["gateway"]=3 ["user-auth"]=3 ["upload"]=5 )
+
+    replicaCount=${REPLICAS[$SERVICE]:-1}
+
+    if grep -q "replicaCount:" "$CHART_PATH/values.yaml"; then
+    sed -i "s/^replicaCount:.*/replicaCount: $replicaCount/" "$CHART_PATH/values.yaml"
+    else
+    echo "replicaCount: $replicaCount" >> "$CHART_PATH/values.yaml"
+    fi
+
     # Update values.yaml
     sed -i "s|repository: .*|repository: $IMAGE_REGISTRY/$SERVICE-service|g" "$CHART_PATH/values.yaml"
     sed -i "s|tag: .*|tag: latest|g" "$CHART_PATH/values.yaml"
