@@ -5,11 +5,11 @@
 # nest-rag-angular-microservice
 Nest Js  Micro Service -  (User Management and Document Management)
 
-## Gateway 
-## User Auth 
-## RBAC 
-## Document Management 
-## Upload Management 
+- Gateway 
+- User Auth 
+- RBAC 
+- Document Management 
+- Upload Management 
 
 ## Prerequisites for - Nest Js  Micro Service
 
@@ -56,7 +56,46 @@ $ npm run test
 $ npm run test:cov
 ```
 
-## Deployment
+# Deployment
+
+## Docker
+
+```bash
+#check the images
+chmod +x deploy/scripts/build-all.sh
+./deploy/scripts/build-all.sh
+
+#check the gateway images , apply for other service same
+docker images | grep gateway
+
+#debug the image proto is in lib folder
+docker run --rm -it gateway:local sh
+ls dist/apps/gateway
+
+```
+
+## Generate Helm Chart
+
+```bash
+chmod +x deploy/scripts/generate-helm.sh
+./deploy/scripts/generate-helm.sh
+
+#output 
+🚀 Generating Helm chart for gateway...
+Creating ./deploy/helm/gateway
+✅ Helm chart for gateway ready at ./deploy/helm/gateway
+🚀 Generating Helm chart for user-auth...
+Creating ./deploy/helm/user-auth
+✅ Helm chart for user-auth ready at ./deploy/helm/user-auth
+🚀 Generating Helm chart for upload...
+Creating ./deploy/helm/upload
+✅ Helm chart for upload ready at ./deploy/helm/upload
+🚀 Generating Helm chart for rbac...
+Creating ./deploy/helm/rbac
+✅ Helm chart for rbac ready at ./deploy/helm/rbac
+
+```
+
 
 
 
