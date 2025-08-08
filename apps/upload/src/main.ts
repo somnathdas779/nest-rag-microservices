@@ -1,22 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { UploadModule } from './upload.module';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { join } from 'path';
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    UploadModule,
-    {
-      transport: Transport.GRPC,
-      options: {
-        package: 'upload',
-        protoPath: join(process.cwd(), './dist/libs/proto/upload.proto'),
-        url: '0.0.0.0:50052',
-      },
-    },
-  );
-  await app.listen();
-  const httpApp = await NestFactory.create(UploadModule);
-  await httpApp.listen(4002); // port for health check
+  const app = await NestFactory.create(UploadModule);
+  await app.listen(3001);
+  console.log('Tus Upload Server listening on port 3001');
 }
 void bootstrap();

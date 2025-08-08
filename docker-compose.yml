@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  consul:
+    image: consul:1.15
+    container_name: consul
+    ports:
+      - "8500:8500"    # HTTP UI/API port
+      - "8600:8600/udp" # DNS interface
+    command: agent -dev -client=0.0.0.0
+    volumes:
+      - consul-data:/consul/data
+
+volumes:
+  consul-data:

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AuthGatewayController } from './authGateway.controller';
 import { AuthGatewayService } from './authGateway.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
@@ -8,11 +8,11 @@ import { UserGatewayService } from './userGateway.service';
 import { SharedJwtModule } from '@app/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { HealthModule } from './health/health.module';
-import { FileGatewayController } from './fileGateway.controller';
-import { UploadGatewayService } from './uploadGateway.service';
-
+import { HttpModule } from '@nestjs/axios';
+import { TusProxyMiddleware } from './tus-proxy.middleware';
 @Module({
   imports: [
+    HttpModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env'], // defaults to .env
@@ -46,23 +46,14 @@ import { UploadGatewayService } from './uploadGateway.service';
           url: 'localhost:50054', // Document service address
         },
       },
-      {
-        name: 'UPLOAD_SERVICE',
-        transport: Transport.GRPC,
-        options: {
-          package: 'upload',
-          protoPath: join(process.cwd(), './dist/libs/proto/upload.proto'),
-          url: 'localhost:50052',
-        },
-      },
     ]),
     HealthModule,
   ],
-  controllers: [
-    AuthGatewayController,
-    UserGatewayController,
-    FileGatewayController,
-  ],
-  providers: [AuthGatewayService, UserGatewayService, UploadGatewayService],
+  controllers: [AuthGatewayController, UserGatewayController],
+  providers: [AuthGatewayService, UserGatewayService],
 })
-export class GatewayModule {}
+export class GatewayModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(TusProxyMiddleware).forRoutes('/files');
+  }
+}
