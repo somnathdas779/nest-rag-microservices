@@ -17,9 +17,17 @@ Nest Js  Micro Service -  (User Management and Document Management)
   - nvm
   - nest cli
   - docker
+  - Tus
+  - Radis DB
+  - Postgres DB
+  - Prometheus
+  - Grafana
   - helm
   - minikube
   - kubectl
+
+  ![System Architecture](./deploy/RAG.drawio.png)
+
  
 
 ## Compile and run the project
