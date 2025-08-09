@@ -64,6 +64,8 @@ $ npm run test
 $ npm run test:cov
 ```
 
+![System Architecture](./deploy/unittest-cov.png)
+
 # Deployment
 
 ## Docker

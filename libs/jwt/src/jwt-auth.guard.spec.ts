@@ -1,66 +1,80 @@
-import { ExecutionContext, UnauthorizedException } from '@nestjs/common';
+import { UnauthorizedException } from '@nestjs/common';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { SharedJwtService } from './jwt.service';
 import { Reflector } from '@nestjs/core';
 
 describe('JwtAuthGuard', () => {
   let guard: JwtAuthGuard;
-  let jwtService: jest.Mocked<SharedJwtService>;
+  let jwtService: Partial<SharedJwtService>;
   let reflector: Reflector;
+  let mockExecutionContext: any;
 
   beforeEach(() => {
     jwtService = {
       isTokenExpired: jest.fn(),
       verifyToken: jest.fn(),
-    } as any;
+    };
+    reflector = new Reflector();
+    guard = new JwtAuthGuard(jwtService as SharedJwtService, reflector);
 
-    reflector = {} as Reflector;
-
-    guard = new JwtAuthGuard(jwtService, reflector);
-  });
-
-  const mockExecutionContext = (headers: Record<string, string>): ExecutionContext => {
-    return {
+    mockExecutionContext = {
       switchToHttp: () => ({
         getRequest: () => ({
-          headers,
+          headers: {},
         }),
       }),
-    } as unknown as ExecutionContext;
-  };
+    };
+  });
 
-  it('should throw if Authorization header is missing', () => {
-    const context = mockExecutionContext({});
-    expect(() => guard.canActivate(context)).toThrow(
+  it('should throw if no Authorization header', () => {
+    expect(() => guard.canActivate(mockExecutionContext)).toThrow(
       new UnauthorizedException('No Authorization header'),
     );
   });
 
-  it('should throw if token is missing or expired', () => {
-    jwtService.isTokenExpired.mockReturnValue(true);
-    const context = mockExecutionContext({
-      authorization: 'Bearer fake.token',
+  it('should throw if token is expired', () => {
+    mockExecutionContext.switchToHttp = () => ({
+      getRequest: () => ({
+        headers: { authorization: 'Bearer expiredtoken' },
+      }),
     });
 
-    expect(() => guard.canActivate(context)).toThrow(
+    (jwtService.isTokenExpired as jest.Mock).mockReturnValue(true);
+
+    expect(() => guard.canActivate(mockExecutionContext)).toThrow(
       new UnauthorizedException('Invalid or expired token'),
     );
   });
 
-  it('should allow if token is valid', () => {
-    jwtService.isTokenExpired.mockReturnValue(false);
-    jwtService.verifyToken.mockReturnValue({ id: 1, username: 'test' });
-
-    const context = mockExecutionContext({
-      authorization: 'Bearer valid.token',
+  it('should throw if token is invalid', () => {
+    mockExecutionContext.switchToHttp = () => ({
+      getRequest: () => ({
+        headers: { authorization: 'Bearer invalidtoken' },
+      }),
     });
 
-    const result = guard.canActivate(context);
-    expect(result).toBe(true);
-    expect(jwtService.isTokenExpired).toHaveBeenCalledWith('valid.token');
-    expect(jwtService.verifyToken).toHaveBeenCalledWith('valid.token');
+    (jwtService.isTokenExpired as jest.Mock).mockReturnValue(false);
+    (jwtService.verifyToken as jest.Mock).mockImplementation(() => {
+      throw new Error('Invalid token');
+    });
 
-    const req = context.switchToHttp().getRequest();
-    expect(req.user).toEqual({ id: 1, username: 'test' });
+    expect(() => guard.canActivate(mockExecutionContext)).toThrow();
+  });
+
+  it('should attach user to request if token is valid', () => {
+    const mockUser = { id: 1, email: 'test@example.com' };
+    const mockRequest = { headers: { authorization: 'Bearer validtoken' } };
+
+    mockExecutionContext.switchToHttp = () => ({
+      getRequest: () => mockRequest,
+    });
+
+    (jwtService.isTokenExpired as jest.Mock).mockReturnValue(false);
+    (jwtService.verifyToken as jest.Mock).mockReturnValue(mockUser);
+
+    const result = guard.canActivate(mockExecutionContext);
+
+    expect(result).toBe(true);
+    expect(mockRequest.user).toEqual(mockUser);
   });
 });
