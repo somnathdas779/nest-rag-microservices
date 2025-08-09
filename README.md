@@ -26,7 +26,7 @@ Nest Js  Micro Service -  (User Management and Document Management)
   - minikube
   - kubectl
 
-  ![System Architecture](./deploy/RAG.drawio.png)
+  ![System Architecture](./deploy/RAGv2.drawio.png)
 
  
 
