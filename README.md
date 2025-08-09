@@ -26,7 +26,7 @@ Nest Js  Micro Service -  (User Management and Document Management)
   - minikube
   - kubectl
 
-  ![System Architecture](./deploy/RAGv2.drawio.png)
+  ![System Architecture](./deploy/RAGv3.drawio.png)
 
  
 
@@ -64,7 +64,7 @@ $ npm run test
 $ npm run test:cov
 ```
 
-![System Architecture](./deploy/unittest-cov.png)
+![System Architecture](./deploy/Screenshotv2-unittest.png)
 
 # Deployment
 
