@@ -7,6 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { DatabaseModule } from '@app/database';
 import { UsersModule } from '@app/users';
 import { HealthModule } from './health/health.module';
+import { MetricsController } from './metrics.controller';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -18,7 +19,7 @@ import { HealthModule } from './health/health.module';
     JwtModule,
     HealthModule,
   ],
-  controllers: [UserAuthController, AuthService],
+  controllers: [UserAuthController, AuthService, MetricsController],
   providers: [UserAuthService, AuthService],
 })
 export class UserAuthModule {}

@@ -4,6 +4,7 @@ import { ManageDocumentsService } from './manage-documents.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
 import { HealthModule } from './health/health.module';
+import { MetricsController } from './metrics.controller';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { HealthModule } from './health/health.module';
     ]),
     HealthModule,
   ],
-  controllers: [ManageDocumentsController],
+  controllers: [ManageDocumentsController, MetricsController],
   providers: [ManageDocumentsService],
 })
 export class ManageDocumentsModule {}

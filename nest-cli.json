@@ -64,6 +64,15 @@
         "tsConfigPath": "apps/nestjs-monorepo-grpc/tsconfig.app.json"
       }
     },
+    "prom": {
+      "type": "library",
+      "root": "libs/prom",
+      "entryFile": "index",
+      "sourceRoot": "libs/prom/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/prom/tsconfig.lib.json"
+      }
+    },
     "rbac": {
       "type": "application",
       "root": "apps/rbac",

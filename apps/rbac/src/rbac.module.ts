@@ -6,6 +6,7 @@ import { DatabaseModule } from '@app/database';
 import { UsersModule } from '@app/users';
 import { RoleService } from './role/role.controller';
 import { HealthModule } from './health/health.module';
+import { MetricsController } from './metrics.controller';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -16,7 +17,7 @@ import { HealthModule } from './health/health.module';
     UsersModule,
     HealthModule,
   ],
-  controllers: [RbacController, RoleService],
+  controllers: [RbacController, RoleService, MetricsController],
   providers: [RbacService, RoleService],
 })
 export class RbacModule {}

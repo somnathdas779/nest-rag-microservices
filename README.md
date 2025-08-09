@@ -119,3 +119,25 @@ kubectl get pods -l app.kubernetes.io/name=gateway
 kubectl rollout restart deployment gateway
 
 ```
+
+## Prometheus & Grafana
+
+```bash
+# Apply namespace for monitoring
+kubectl create namespace monitoring
+
+# Deploy Prometheus configmap, deployment & service
+kubectl apply -f prometheus-configmap.yaml
+kubectl apply -f prometheus-deployment.yaml
+kubectl apply -f prometheus-service.yaml
+
+# Deploy Grafana deployment & service
+kubectl apply -f grafana-deployment.yaml
+kubectl apply -f grafana-service.yaml
+
+# Verify pods & services
+kubectl get pods -n monitoring
+kubectl get svc -n monitoring
+
+
+```

@@ -10,6 +10,7 @@ import { ConfigModule } from '@nestjs/config';
 import { HealthModule } from './health/health.module';
 import { HttpModule } from '@nestjs/axios';
 import { TusProxyMiddleware } from './tus-proxy.middleware';
+import { MetricsController } from './metrics.controller';
 @Module({
   imports: [
     HttpModule,
@@ -49,7 +50,11 @@ import { TusProxyMiddleware } from './tus-proxy.middleware';
     ]),
     HealthModule,
   ],
-  controllers: [AuthGatewayController, UserGatewayController],
+  controllers: [
+    AuthGatewayController,
+    UserGatewayController,
+    MetricsController,
+  ],
   providers: [AuthGatewayService, UserGatewayService],
 })
 export class GatewayModule {
