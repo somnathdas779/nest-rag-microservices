@@ -13,11 +13,8 @@ Nest Js  Micro Service -  (User Management and Document Management)
 
 ## Prerequisites for - Nest Js  Micro Service
 
-  - node
-  - nvm
-  - nest cli
-  - docker
-  - Tus
+  - Node - Node.js 20+
+  - Docker
   - Radis DB
   - Postgres DB
   - Prometheus
