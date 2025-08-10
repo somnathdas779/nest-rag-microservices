@@ -3,7 +3,7 @@
 
 
 # nest-rag-angular-microservice
-Nest Js  Micro Service -  (User Management and Document Management)
+Nest Js  Micro Service -  (User Management with Role and Document Management)
 
 - Gateway 
 - User Auth 
