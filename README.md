@@ -12,17 +12,24 @@
  - Document Management system supporting document upload, storage
  - Designed for modularity, scalability
 
-## Prerequisites for - Nest Js  Micro Service
+## Prerequisites for - Nest Js  Micro Service Monorepo
 
   - Node - Node.js 20+
   - Docker
   - Radis DB
+  - Kafka
+  - GRpc
+  - Http Middleware Proxy - partial uploads, resume, and final assembly
+  - Tus Server
+  - AWS Sdk
   - Postgres DB
   - Prometheus
   - Grafana
   - Helm
   - Minikube - Local Testing
   - kubectl
+
+  
 
   ![System Architecture](./deploy/RAGv3.drawio.png)
 
