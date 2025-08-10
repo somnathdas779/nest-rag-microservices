@@ -3,13 +3,14 @@
 
 
 # nestjs-rag-microservice
-Nest Js  Micro Service -  (User Management with Role and Document Management)
 
-- Gateway 
-- User Auth 
-- RBAC 
-- Document Management 
-- Upload Management 
+## NestJS Microservices architecture featuring:
+
+ - User Management with role-based access control (RBAC)
+ - Gateway service acting as the API gateway and routing requests
+ - User Authentication service with secure JWT-based login
+ - Document Management system supporting document upload, storage
+ - Designed for modularity, scalability
 
 ## Prerequisites for - Nest Js  Micro Service
 
@@ -19,8 +20,8 @@ Nest Js  Micro Service -  (User Management with Role and Document Management)
   - Postgres DB
   - Prometheus
   - Grafana
-  - helm
-  - minikube
+  - Helm
+  - Minikube - Local Testing
   - kubectl
 
   ![System Architecture](./deploy/RAGv3.drawio.png)
