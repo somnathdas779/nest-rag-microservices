@@ -4,7 +4,7 @@
 
 # nestjs-rag-microservice
 
-## NestJS Monorepo Microservices architecture featuring:
+## NestJS Monorepo Microservices Architecture Featuring:
 
  - User Management with role-based access control (RBAC)
  - Gateway service acting as the API gateway and routing requests
