@@ -3,7 +3,9 @@
 
 
 # nestjs-rag-microservice
-Nest Js  Micro Service -  (User Management and Document Management)
+
+## Nest Js  Micro Service -  (User Management with Role and Document Management with document upload)
+
 
 - Gateway 
 - User Auth 
@@ -13,11 +15,8 @@ Nest Js  Micro Service -  (User Management and Document Management)
 
 ## Prerequisites for - Nest Js  Micro Service
 
-  - node
-  - nvm
-  - nest cli
-  - docker
-  - Tus
+  - Node - Node.js 20+
+  - Docker
   - Radis DB
   - Postgres DB
   - Prometheus
