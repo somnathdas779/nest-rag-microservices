@@ -3,7 +3,9 @@
 
 
 # nestjs-rag-microservice
-Nest Js  Micro Service -  (User Management with Role and Document Management)
+
+## Nest Js  Micro Service -  (User Management with Role and Document Management with document upload)
+
 
 - Gateway 
 - User Auth 
