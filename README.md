@@ -16,13 +16,14 @@
 
   - Node - Node.js 20+
   - Docker
-  - Radis DB
   - Kafka
+  - Postgres DB
+  - TypeORM
+  - Radis
   - GRpc
   - Http Middleware Proxy - partial uploads, resume, and final assembly
   - Tus Server
   - AWS Sdk
-  - Postgres DB
   - Prometheus
   - Grafana
   - Helm
